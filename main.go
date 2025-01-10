@@ -30,7 +30,7 @@ func main() {
     }
     //fmt.Println(prog)
     //fmt.Println(compiler.CompileProgram(prog, 36))
-    err = os.WriteFile(*outfile, []byte(compiler.CompileProgram(prog, 36)), 0644)
+    err = os.WriteFile(*outfile, []byte(compiler.CompileProgram(prog)), 0644)
 }
 
 func usageFunc() {

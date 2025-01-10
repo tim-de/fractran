@@ -7,9 +7,8 @@ This was largely intended as an exercise to get my head around division
 by fixed point multiplication, although it could definitely be implemented
 more elegantly than it currently (2025-01-10) is.
 
-Further things to solve include the fact that the program ~~is a hardcoded
-string that~~ uses a hardcoded value as its input, but you've got to start
-somewhere, right?
+The resulting programs take the starting value as a command line argument,
+and write the result to stdout
 
 ## Usage
 The compiler is invoked as follows

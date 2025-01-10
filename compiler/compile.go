@@ -7,24 +7,36 @@ import (
 )
 
 const prologue = `
-export function w $main() {
+export function w $main(w %argc, l %argv) {
     @start
+    %argtest =w cugtw %argc, 1
+    jnz %argtest, @convert, @argfail
+    @argfail
+    call $printf(l $argerr)
+    jmp @end
+    @convert
+    %arg1ptr =l add %argv, 8
+    %arg1 =l loadl %arg1ptr
+    %startval =l call $atol(l %arg1)
+    jnz %startval, @run, @argfail
     @run
-    %%r =l call $run(l %d)
-    call $printf(l $fmt, ..., l %%r)
+    %r =l call $run(l %startval)
+    call $printf(l $fmt, ..., l %r)
+    @end
     ret 0
 }
 
-function l $run(l %%num) {
+function l $run(l %num) {
     @start
     @loop
-    %%init =l phi @start %%num`
+    %init =l phi @start %num`
 
 const epilogue = `
     ret %init
 }
 
 data $fmt = { b "%lu\n", b 0}
+data $argerr = { b "Invalid or missing argument\n", b 0 }
 `
 
 const instr_fmt = `
@@ -37,8 +49,8 @@ const instr_fmt = `
     jnz %%cmp%d, @loop, @next%d
     @next%d`
 
-func CompileProgram(prog parser.Program, startval int) string {
-    res := fmt.Sprintf(prologue, startval)
+func CompileProgram(prog parser.Program) string {
+    res := prologue
     for ix := 0; ix < len(prog); ix += 1 {
         res = fmt.Sprintf("%s, @inst%d %%res%d", res, ix, ix)
     }
