@@ -42,7 +42,7 @@ func CompileProgram(prog parser.Program, startval int) string {
         res = fmt.Sprintf("%s, @inst%d %%res%d", res, ix, ix)
     }
     for pos, frac := range prog {
-        res = fmt.Sprintf("%s\n%s\n", res, CompileInstruction(frac, pos))
+        res = fmt.Sprintf("%s\n%s", res, CompileInstruction(frac, pos))
     }
     return fmt.Sprintf("%s%s", res, epilogue)
 }

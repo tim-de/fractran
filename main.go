@@ -7,12 +7,12 @@ import (
 )
 
 func main() {
-    text := "3/2"
+    text := "455/33, 11/13, 1/11, 3/7, 11/2, 1/3"
     prog, ok := parser.ReadProgram(text)
     if !ok {
         fmt.Println("Failed to parse program")
         return
     }
     //fmt.Println(prog)
-    fmt.Println(compiler.CompileProgram(prog, 144))
+    fmt.Println(compiler.CompileProgram(prog, 36))
 }
