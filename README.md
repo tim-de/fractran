@@ -11,7 +11,7 @@ Further things to solve include the fact that the program ~~is a hardcoded
 string that~~ uses a hardcoded value as its input, but you've got to start
 somewhere, right?
 
-##Usage
+## Usage
 The compiler is invoked as follows
 ```
 fractran [options] <input-file>
