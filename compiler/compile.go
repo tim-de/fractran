@@ -50,6 +50,8 @@ func CompileProgram(prog parser.Program, startval int) string {
 
 func CompileInstruction(frac fraction.Fraction, pos int) string {
     num, den := frac.Numerator(), frac.Denominator()
+    // Fixed point multiplication, and a subsequent bit shift are used
+    // in place of expensive divide operations
     div_mul := (68719476736 / den) + 1
     shift_factor := 36
     return fmt.Sprintf(instr_fmt,
