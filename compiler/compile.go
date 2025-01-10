@@ -24,7 +24,8 @@ const epilogue = `
     ret %init
 }
 
-data $fmt = { b "%lu\n", b 0}`
+data $fmt = { b "%lu\n", b 0}
+`
 
 const instr_fmt = `
     @inst%d
