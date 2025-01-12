@@ -17,5 +17,17 @@ fractran [options] <input-file>
 ```
 and accepts the following options:
 ```
+-c                  Output C source code
+-x                  Output X86_64 assembly
+-q                  Output QBE IR (default)
 -o <output-file>    Set the file path to write QBE ir to
 ```
+
+## Issues
+While working on this, and comparing it to a fledgling interpreter written
+in an interpreted and managed language, it showed some errors. This is due to
+some of the intermediate values in the fixed point multiplications overflowing
+the 64 bits of the variables used. This affects both the QBE and C modes, as
+both use a bitwidth of 64 for all data. This does not, however, affect the
+X86_64 mode, as the multiplication instructions in the X86_64 ISA return the
+result in two registers, permitting up to 128 bits of result.

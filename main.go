@@ -10,8 +10,17 @@ import (
 
 func main() {
     flag.Usage = usageFunc
-    outfile := flag.String("o", "out.ssa", "File name for generated program")
+    outfile := flag.String("o", "frac.out", "File name for generated program")
+    c_mode := flag.Bool("c", false, "Compile to c source")
+    x86_64_mode := flag.Bool("x", false, "Compile to x86_64 assembly")
     flag.Parse()
+    compile_mode := compiler.QBE
+    if *c_mode {
+        compile_mode = compiler.C
+    }
+    if *x86_64_mode {
+        compile_mode = compiler.X86_64
+    }
     if flag.NArg() < 1 {
         fmt.Fprintln(os.Stderr, "No input file given")
         os.Exit(1)
@@ -30,7 +39,7 @@ func main() {
     }
     //fmt.Println(prog)
     //fmt.Println(compiler.CompileProgram(prog, 36))
-    err = os.WriteFile(*outfile, []byte(compiler.CompileProgram(prog)), 0644)
+    err = os.WriteFile(*outfile, []byte(compiler.CompileProgram(prog, compile_mode)), 0644)
 }
 
 func usageFunc() {
