@@ -4,8 +4,7 @@ programming language devised by John Conway, targeting the
 [QBE](https://c9x.me/compile/) compiler backend.
 
 This was largely intended as an exercise to get my head around division
-by fixed point multiplication, although it could definitely be implemented
-more elegantly than it currently (2025-01-10) is.
+by fixed point multiplication, which I have now got working
 
 The resulting programs take the starting value as a command line argument,
 and write the result to stdout
