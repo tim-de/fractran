@@ -11,6 +11,7 @@ import (
 func main() {
     flag.Usage = usageFunc
     outfile := flag.String("o", "frac.out", "File name for generated program")
+    qbe_mode := flag.Bool("q", false, "Compile to QBE IR")
     c_mode := flag.Bool("c", false, "Compile to c source")
     x86_64_mode := flag.Bool("x", false, "Compile to x86_64 assembly")
     flag.Parse()
@@ -20,6 +21,9 @@ func main() {
     }
     if *x86_64_mode {
         compile_mode = compiler.X86_64
+    }
+    if *qbe_mode {
+        compile_mode = compiler.QBE
     }
     if flag.NArg() < 1 {
         fmt.Fprintln(os.Stderr, "No input file given")

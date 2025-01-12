@@ -41,10 +41,10 @@ data $argerr = { b "Invalid or missing argument\n", b 0 }
 
 const qbe_instr_fmt = `
     @inst%d
-    %%times_num%d =l mul %%init, %d
-    %%tmp%d =l mul %%times_num%d, %d
+    %%tmp%d =l mul %%init, %d
     %%res%d =l sar %%tmp%d, %d
     %%test%d =l mul %%res%d, %d
+    %%times_num%d =l mul %%init, %d
     %%cmp%d =w ceql %%times_num%d, %%test%d
     jnz %%cmp%d, @loop, @next%d
     @next%d`
@@ -54,7 +54,7 @@ func CompileProgramQBE(program parser.Program) string {
     for ix := 0; ix < len(program); ix += 1 {
         res = fmt.Sprintf("%s, @inst%d %%res%d", res, ix, ix)
     }
-    res = fmt.Sprintf("%s\n    call $printf(l $fmt, ..., l %%init)", res)
+    //res = fmt.Sprintf("%s\n    call $printf(l $fmt, ..., l %%init)", res)
     for pos, frac := range program {
         res = fmt.Sprintf("%s\n%s", res, CompileInstructionQBE(frac, pos))
     }
@@ -70,10 +70,10 @@ func CompileInstructionQBE(frac fraction.Fraction, pos int) string {
     //shift_factor := 36
     return fmt.Sprintf(qbe_instr_fmt,
         pos,
-        pos, num,
-        pos, pos, div_mul,
+        pos, div_mul,
         pos, pos, shift_factor,
         pos, pos, den,
+        pos, num,
         pos, pos, pos,
         pos, pos,
         pos,
